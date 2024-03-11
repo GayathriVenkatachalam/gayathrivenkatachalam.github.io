@@ -1,0 +1,86 @@
+---
+title: "CaseStudy2-SmartDeviceAnalysis"
+author: "Gayathri Venakatachalam"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Installing Packages
+
+```{r} 
+
+library(readr)
+library(dplyr)
+library(tidyverse) 
+library(rmarkdown)
+
+```
+#=====================
+# STEP 1: COLLECT DATA
+#=====================
+# # Upload datasets (csv files) here
+```{r}
+dailyActivity_merged <-read_csv("C:/Users/rajam/Desktop/path to Data Analyst/CASE STUDIES/Case Study - 2/data sets/for analysis/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/dailyActivity_merged.csv")
+
+dailyCalories_merged <-read_csv("C:/Users/rajam/Desktop/Path to Data Analyst/CASE STUDIES/Case Study - 2/data sets/for analysis/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/hourlyCalories_merged.csv")
+
+dailyIntensities_merged <-read_csv("C:/Users/rajam/Desktop/Path to Data Analyst/CASE STUDIES/Case Study - 2/data sets/for analysis/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/hourlyIntensities_merged.csv")
+
+dailySteps_merged <-read_csv("C:/Users/rajam/Desktop/Path to Data Analyst/CASE STUDIES/Case Study - 2/data sets/for analysis/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/hourlySteps_merged.csv")
+
+sleepDay_merged <- read_csv("C:/Users/rajam/Desktop/Path to Data Analyst/CASE STUDIES/Case Study - 2/data sets/for analysis/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/minuteSleep_merged.csv")
+
+weightLogInfo_merged <- read_csv("C:/Users/rajam/Desktop/Path to Data Analyst/CASE STUDIES/Case Study - 2/data sets/for analysis/mturkfitbit_export_3.12.16-4.11.16/Fitabase Data 3.12.16-4.11.16/weightLogInfo_merged.csv")
+
+```
+#======================================================
+# STEP 2: CLEAN UP AND ADD DATA TO PREPARE FOR ANALYSIS
+#======================================================
+# Inspect the new table that has been created
+
+```{r}
+summary(dailyActivity_merged)
+head(dailyActivity_merged)
+
+```
+
+
+
+
+
+
+## Including Plots
+# Let's create a visualization for various degree of activeness based on the total steps
+```{r}
+ggplot() + 
+  geom_line(data=dailyActivity_merged, aes(x=LightlyActiveMinutes, y=TotalSteps),color='yellow')+
+  geom_line(data=dailyActivity_merged, aes(x=VeryActiveMinutes, y=TotalSteps),color='green')+
+  geom_line(data=dailyActivity_merged, aes(x=FairlyActiveMinutes, y=TotalSteps),color='blue')+
+  labs(title="Total Steps Vs Degree of Activeness")
+
+```
+# Let's create a visualization for calories burnt based on the total steps
+```{r}
+ggplot(data=dailyActivity_merged)+
+  geom_point(mapping=aes(x=TotalSteps,y=Calories),color='black')+
+  labs(title="Total Steps Vs Calories Burnt")
+```
+
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
